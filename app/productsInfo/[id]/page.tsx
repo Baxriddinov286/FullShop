@@ -114,7 +114,7 @@ const Page = () => {
   };
 
   return (
-    <div className="w-full max-w-[1520] mx-auto">
+    <div className="w-full max-w-[1520px] mx-auto">
       <ToastContainer />
       <Navbar />
 
@@ -196,30 +196,32 @@ const Page = () => {
                 <Skeleton width={150} height={50} />
               </>
             ) : (
-              <div className="actions">
-                <button
-                  onClick={() => addToCart(product)}
-                  className="text-gray-500 hover:text-green-500 text-xl"
-                >
-                  {cartItems.includes(product.id) ? (
-                    <MdAddShoppingCart className="text-2xl" />
-                  ) : (
-                    <MdOutlineShoppingCart className="text-2xl" />
-                  )}
-                </button>
-                <button
-                  onClick={() => toggleLike(product)}
-                  className="text-gray-500"
-                >
-                  <CiHeart
-                    className={`text-2xl ${
-                      likedProducts.includes(product.id)
-                        ? "text-red-500"
-                        : "text-black"
-                    }`}
-                  />
-                </button>
-              </div>
+              product && (
+                <div className="actions">
+                  <button
+                    onClick={() => addToCart(product)}
+                    className="text-gray-500 hover:text-green-500 text-xl"
+                  >
+                    {cartItems.includes(product.id) ? (
+                      <MdAddShoppingCart className="text-2xl" />
+                    ) : (
+                      <MdOutlineShoppingCart className="text-2xl" />
+                    )}
+                  </button>
+                  <button
+                    onClick={() => toggleLike(product)}
+                    className="text-gray-500"
+                  >
+                    <CiHeart
+                      className={`text-2xl ${
+                        likedProducts.includes(product.id)
+                          ? "text-red-500"
+                          : "text-black"
+                      }`}
+                    />
+                  </button>
+                </div>
+              )
             )}
           </div>
 
