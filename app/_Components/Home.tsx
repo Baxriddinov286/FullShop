@@ -115,24 +115,23 @@ export default function Home() {
   });
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
       <ToastContainer />
-      <nav className="navbar w-full mx-auto p-4 flex justify-between items-center bg-white shadow">
+      <nav className="navbar w-full mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center bg-white shadow gap-4 md:gap-0">
         <div className="navbar-left">
           <h1
             onClick={() => (location.href = "/")}
-            className="cursor-pointer logo flex items-center text-2xl font-bold"
+            className="cursor-pointer logo flex items-center text-2xl font-bold gap-1"
           >
-            My
-            <HiOutlineShoppingCart /> Shop
+            My <HiOutlineShoppingCart /> Shop
           </h1>
         </div>
 
-        <div className="navbar-center flex items-center gap-4">
+        <div className="navbar-center flex flex-col sm:flex-row items-center gap-2">
           <select
             value={categoryId}
             onChange={(e) => setCategoryId(e.target.value)}
-            className="border px-3 py-2 rounded"
+            className="border px-3 py-2 rounded w-full sm:w-auto"
           >
             <option value="">Barcha Kategoriyalar</option>
             {categories.map((category) => (
@@ -142,15 +141,15 @@ export default function Home() {
             ))}
           </select>
 
-          <div className="search-box flex items-center">
+          <div className="search-box flex w-full sm:w-auto items-center">
             <input
               type="search"
               placeholder="Qidiruv..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="px-3 py-2 rounded"
+              className="px-3 py-2 rounded border w-full sm:w-64"
             />
-            <button className="px-2 py-2 bg-blue-500 text-white rounded">
+            <button className="ml-2 px-3 py-2 bg-blue-500 text-white rounded">
               🔍
             </button>
           </div>
@@ -178,7 +177,7 @@ export default function Home() {
         </div>
       </nav>
 
-      <div className="w-full mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 px-4">
+      <div className="w-full mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-4">
         {loading
           ? [...Array(10)].map((_, index) => (
               <div key={index} className="border p-4 rounded shadow-sm">
@@ -190,7 +189,7 @@ export default function Home() {
           : filteredProducts.map((product) => (
               <div
                 key={product.id}
-                className="cursor-pointer border p-3 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                className="cursor-pointer border p-3 rounded-lg shadow-md hover:shadow-lg transition-shadow bg-white"
               >
                 <Image
                   onClick={() =>
@@ -234,13 +233,13 @@ export default function Home() {
             ))}
       </div>
 
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-center mt-6 mb-8">
         <button
           onClick={() => {
             setCountProduct(countProduct + 15);
             fetchProducts();
           }}
-          className="px-4 py-2 bg-blue-500 text-white rounded w-25"
+          className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded w-52"
         >
           Yana Ko‘rsatish
         </button>
