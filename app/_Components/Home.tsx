@@ -189,21 +189,23 @@ export default function Home() {
           : filteredProducts.map((product) => (
               <div
                 key={product.id}
-                className="cursor-pointer border p-3 rounded-lg shadow-md hover:shadow-lg transition-shadow bg-white"
+                className="cursor-pointer border p-3 rounded-lg shadow-md hover:shadow-lg transition-shadow bg-white flex flex-col justify-between"
               >
-                <Image
-                  onClick={() =>
-                    (location.href = `/productsInfo/${product.id}`)
-                  }
-                  src={`https://tjnkjlpbumtqlylftrkn.supabase.co/storage/v1/object/public/${product.images[0]}`}
-                  alt={product.name}
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover rounded-lg mb-4"
-                />
-                <h2 className="text-lg font-semibold text-gray-800">
-                  {product.name}
-                </h2>
+                <div>
+                  <Image
+                    onClick={() =>
+                      (location.href = `/productsInfo/${product.id}`)
+                    }
+                    src={`https://tjnkjlpbumtqlylftrkn.supabase.co/storage/v1/object/public/${product.images[0]}`}
+                    alt={product.name}
+                    width={300}
+                    height={200}
+                    className="w-full h-48 object-cover rounded-lg mb-4"
+                  />
+                  <h5 className="text-sm font-semibold text-gray-800">
+                    {product.name}
+                  </h5>
+                </div>
                 <p className="text-green-500 font-bold">{product.price} so‘m</p>
                 <div className="flex justify-end items-center mt-4 gap-4">
                   <button

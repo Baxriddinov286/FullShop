@@ -279,7 +279,7 @@ export default function Products() {
                         ))}
                       </td>
                       <td>{product.name}</td>
-                      <td>{product.desc.slice(0, 50) + "..."}</td>
+                      <td>{product.desc.slice(0, 15) + "..."}</td>
                       <td>{category ? category.name : "Noma'lum"}</td>
                       <td>{product.price}</td>
                       <td>
