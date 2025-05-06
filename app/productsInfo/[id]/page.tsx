@@ -114,13 +114,13 @@ const Page = () => {
   };
 
   return (
-    <div className="w-full max-w-[1520px] mx-auto">
+    <div className="w-full max-w-[1520px] px-2 mx-auto">
       <ToastContainer />
       <Navbar />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
-        <div className="flex items-start gap-3">
-          <div className="flex flex-col gap-2">
+        <div className="flex flex-col lg:flex-row items-start gap-3">
+          <div className="flex lg:flex-col gap-2">
             {loading
               ? Array(4)
                   .fill(0)

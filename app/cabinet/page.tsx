@@ -90,7 +90,7 @@ export default function Cabinet() {
   };
 
   return (
-    <div className="w-full max-w-[1520px] mx-auto">
+    <div className="w-full max-w-[1520px] mx-auto px-4">
       <Navbar />
       <div className="w-full mt-6">
         {orderDetails ? (
@@ -99,8 +99,12 @@ export default function Cabinet() {
               <h3 className="text-xl font-semibold text-gray-800">
                 Buyurtmachi ma'lumotlari:
               </h3>
-              <p className="text-gray-600">Email: {orderDetails.email}</p>
-              <p className="text-gray-600">Telefon: {orderDetails.phone}</p>
+              <p className="text-gray-600 break-words">
+                Email: {orderDetails.email}
+              </p>
+              <p className="text-gray-600 break-words">
+                Telefon: {orderDetails.phone}
+              </p>
               <p className="text-green-500 font-bold">
                 Umumiy narx: {orderDetails.totalPrice} so‘m
               </p>
@@ -109,46 +113,49 @@ export default function Cabinet() {
               </p>
               <button
                 onClick={handleAcceptOrder}
-                className="mt-4 p-2 bg-blue-500 text-white rounded"
+                className="mt-4 p-2 bg-blue-500 hover:bg-blue-600 text-white rounded transition"
               >
                 Mahsulotni qabul qilish
               </button>
             </div>
-            <div className="w-full mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-              {userProducts.map((product) => (
-                <div
-                  key={product.id}
-                  className="cursor-pointer border p-3 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-                >
-                  <Image
-                    onClick={() =>
-                      (location.href = `/productsInfo/${product.id}`)
-                    }
-                    src={`https://tjnkjlpbumtqlylftrkn.supabase.co/storage/v1/object/public/${product.images[0]}`}
-                    alt={product.name}
-                    width={300}
-                    height={200}
-                    className="w-full h-48 object-cover rounded-lg mb-4"
-                  />
-                  <h2 className="text-lg font-semibold text-gray-800">
-                    {product.name}
-                  </h2>
-                  <p className="text-green-500 font-bold">
-                    {product.price} so‘m
-                  </p>
-                </div>
-              ))}
-            </div>
+
+            {userProducts.length > 0 ? (
+              <div className="w-full mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                {userProducts.map((product) => (
+                  <div
+                    key={product.id}
+                    className="cursor-pointer border p-3 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                  >
+                    <Image
+                      onClick={() =>
+                        (location.href = `/productsInfo/${product.id}`)
+                      }
+                      src={`https://tjnkjlpbumtqlylftrkn.supabase.co/storage/v1/object/public/${product.images[0]}`}
+                      alt={product.name}
+                      width={300}
+                      height={200}
+                      className="w-full h-48 object-cover rounded-lg mb-4"
+                    />
+                    <h2 className="text-lg font-semibold text-gray-800">
+                      {product.name}
+                    </h2>
+                    <p className="text-green-500 font-bold">
+                      {product.price} so‘m
+                    </p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-center text-lg text-gray-600 mt-8">
+                Mahsulot yo‘q
+              </p>
+            )}
           </div>
         ) : (
-          <div className="w-full mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {[...Array(10)].map((_, index) => (
-              <div key={index} className="border p-4 rounded shadow-sm">
-                <div className="w-full h-48 bg-gray-200 animate-pulse mb-4 rounded-lg"></div>
-                <div className="w-4/5 h-5 bg-gray-200 animate-pulse mb-2 rounded"></div>
-                <div className="w-3/5 h-5 bg-gray-200 animate-pulse mb-4 rounded"></div>
-              </div>
-            ))}
+          <div className="w-full mt-6">
+            <p className="text-center text-lg text-gray-600 mt-8">
+              Mahsulot yo‘q
+            </p>
           </div>
         )}
       </div>
