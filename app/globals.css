@@ -4,6 +4,15 @@
   outline: none;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
 /* Navbar */
 .navbar {
   display: flex;

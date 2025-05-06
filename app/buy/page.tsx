@@ -60,6 +60,7 @@ export default function Buy() {
           totalPrice: total,
           location: address,
           phone,
+          email,
           productId: productIds, // <--- IDlar array sifatida yuboriladi
         })
         .select("id")

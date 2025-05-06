@@ -119,7 +119,6 @@ const Page = () => {
       <Navbar />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
-        {/* Image Section */}
         <div className="flex items-start gap-3">
           <div className="flex flex-col gap-2">
             {loading
@@ -165,7 +164,6 @@ const Page = () => {
           </div>
         </div>
 
-        {/* Product Info */}
         <div className="space-y-4">
           {loading ? (
             <Skeleton width={300} height={40} />

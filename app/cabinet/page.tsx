@@ -14,6 +14,10 @@ interface ProductType {
 interface OrderType {
   id: string;
   productId: string[];
+  email: string;
+  phone: string;
+  totalPrice: number;
+  status: string;
 }
 
 export default function Cabinet() {
@@ -28,7 +32,6 @@ export default function Cabinet() {
         const parsedData = JSON.parse(storedProductData);
         const { email } = parsedData;
 
-        // Buyurtmalarni email orqali olish
         const { data: orders, error: orderError } = await supabase
           .from("Shop_Order")
           .select("*")
@@ -43,9 +46,8 @@ export default function Cabinet() {
           const order = orders[0];
           setOrderDetails(order);
 
-          // Agar productId massiv bo'lsa, so'rov yuborish
           const { data: products, error: productError } = await supabase
-            .from("Shop_Product")
+            .from("Shop_Products")
             .select("*")
             .in("id", order.productId);
 
@@ -67,9 +69,89 @@ export default function Cabinet() {
     getUserOrderData();
   }, []);
 
+  const handleAcceptOrder = async () => {
+    localStorage.removeItem("GettedProduct");
+
+    if (orderDetails) {
+      const { id } = orderDetails;
+
+      const { error } = await supabase
+        .from("Shop_Order")
+        .update({ status: "Mahsulot topshirildi" })
+        .eq("id", id);
+
+      if (error) {
+        console.error("Statusni yangilashda xatolik:", error.message);
+        return;
+      }
+
+      setOrderDetails({ ...orderDetails, status: "Mahsulot topshirildi" });
+    }
+  };
+
   return (
     <div className="w-full max-w-[1520px] mx-auto">
       <Navbar />
+      <div className="w-full mt-6">
+        {orderDetails ? (
+          <div>
+            <div className="mb-6 p-4 border rounded-lg shadow-md">
+              <h3 className="text-xl font-semibold text-gray-800">
+                Buyurtmachi ma'lumotlari:
+              </h3>
+              <p className="text-gray-600">Email: {orderDetails.email}</p>
+              <p className="text-gray-600">Telefon: {orderDetails.phone}</p>
+              <p className="text-green-500 font-bold">
+                Umumiy narx: {orderDetails.totalPrice} so‘m
+              </p>
+              <p className="text-green-500 font-bold">
+                Buyurtma holati: {orderDetails.status}
+              </p>
+              <button
+                onClick={handleAcceptOrder}
+                className="mt-4 p-2 bg-blue-500 text-white rounded"
+              >
+                Mahsulotni qabul qilish
+              </button>
+            </div>
+            <div className="w-full mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              {userProducts.map((product) => (
+                <div
+                  key={product.id}
+                  className="cursor-pointer border p-3 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                >
+                  <Image
+                    onClick={() =>
+                      (location.href = `/productsInfo/${product.id}`)
+                    }
+                    src={`https://tjnkjlpbumtqlylftrkn.supabase.co/storage/v1/object/public/${product.images[0]}`}
+                    alt={product.name}
+                    width={300}
+                    height={200}
+                    className="w-full h-48 object-cover rounded-lg mb-4"
+                  />
+                  <h2 className="text-lg font-semibold text-gray-800">
+                    {product.name}
+                  </h2>
+                  <p className="text-green-500 font-bold">
+                    {product.price} so‘m
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="w-full mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {[...Array(10)].map((_, index) => (
+              <div key={index} className="border p-4 rounded shadow-sm">
+                <div className="w-full h-48 bg-gray-200 animate-pulse mb-4 rounded-lg"></div>
+                <div className="w-4/5 h-5 bg-gray-200 animate-pulse mb-2 rounded"></div>
+                <div className="w-3/5 h-5 bg-gray-200 animate-pulse mb-4 rounded"></div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

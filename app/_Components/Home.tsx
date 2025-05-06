@@ -119,8 +119,12 @@ export default function Home() {
       <ToastContainer />
       <nav className="navbar w-full mx-auto p-4 flex justify-between items-center bg-white shadow">
         <div className="navbar-left">
-          <h1 className="logo flex items-center text-2xl font-bold gap-1">
-            My <HiOutlineShoppingCart /> Shop
+          <h1
+            onClick={() => (location.href = "/")}
+            className="cursor-pointer logo flex items-center text-2xl font-bold"
+          >
+            My
+            <HiOutlineShoppingCart /> Shop
           </h1>
         </div>
 
